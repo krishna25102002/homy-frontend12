@@ -4,15 +4,27 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/favicon.png" />
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-yEyuQfPLoP3LW4lB9EzMARoCimh64T4"></script>
+  <!-- Remove the hardcoded API key -->
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-yEyuQfPLoP3LW4lB9EzMARoCimh64T4"></script> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Homy - Real Estate React js Template</title>
+  <title>Homy - Real Estate</title>
 </head>
-`
 
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+
+  <script>
+    // Dynamically load the Google Maps API key from environment variables
+    const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+    if (googleMapsApiKey) {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}`;
+      document.head.appendChild(script);
+    } else {
+      console.error('Google Maps API key is not set in environment variables.');
+    }
+  </script>
 </body>
 
 </html>

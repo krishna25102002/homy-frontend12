@@ -383,40 +383,60 @@ const AddProperty: React.FC = () => {
     };
 
     useEffect(() => {
-        if (mapRef.current && !map) {
-            const googleMap = new window.google.maps.Map(mapRef.current, {
-                center: { lat: 12.9716, lng: 77.5946 },
-                zoom: 12,
-            });
-
-            setMap(googleMap);
-
-            googleMap.addListener('click', (event: google.maps.MapMouseEvent) => {
-                if (event.latLng) {
-                    const lat = event.latLng.lat();
-                    const lng = event.latLng.lng();
-
-                    setFormData((prevState) => ({
-                        ...prevState,
-                        location: { lat, lng },
-                    }));
-
-                    if (marker) {
-                        marker.setMap(null);
-                    }
-
-                    const newMarker = new google.maps.Marker({
-                        position: { lat, lng },
-                        map: googleMap,
-                        title: 'Selected Location',
+        const initializeMap = () => {
+            try {
+                if (mapRef.current && !map && window.google && window.google.maps) {
+                    const googleMap = new window.google.maps.Map(mapRef.current, {
+                        center: { lat: 12.9716, lng: 77.5946 },
+                        zoom: 17,
                     });
 
-                    setMarker(newMarker);
+                    setMap(googleMap);
 
-                    console.log('Selected Location:', { lat, lng });
+                    googleMap.addListener('click', (event: google.maps.MapMouseEvent) => {
+                        if (event.latLng) {
+                            const lat = event.latLng.lat();
+                            const lng = event.latLng.lng();
+
+                            setFormData((prevState) => ({
+                                ...prevState,
+                                location: { lat, lng },
+                            }));
+
+                            if (marker) {
+                                marker.setMap(null);
+                            }
+
+                            const newMarker = new window.google.maps.Marker({
+                                position: { lat, lng },
+                                map: googleMap,
+                                title: 'Selected Location',
+                            });
+
+                            setMarker(newMarker);
+
+                            console.log('Selected Location:', { lat, lng });
+                        }
+                    });
                 }
-            });
+            } catch (error) {
+                console.error("Error initializing map:", error);
+            }
+        };
+
+        // Check if Google Maps API is already loaded
+        if (window.google && window.google.maps) {
+            initializeMap();
+        } else {
+            // If not loaded, set a timeout to retry after a short delay
+            const intervalId = setInterval(() => {
+                if (window.google && window.google.maps) {
+                    initializeMap();
+                    clearInterval(intervalId);
+                }
+            }, 50); // Check every 100ms
         }
+
     }, [map, marker]);
 
     return (
@@ -602,7 +622,7 @@ const AddProperty: React.FC = () => {
 
                 <div className="form-section">
                     <label>Location*</label>
-                    <div ref={mapRef} style={{ width: '100%', height: '300px', marginTop: '10px' }}></div>
+                    {/* <div ref={mapRef} style={{ width: '100%', height: '300px', marginTop: '10px' }}></div> */}
                     <button
                         type="button"
                         onClick={getCurrentLocation}
