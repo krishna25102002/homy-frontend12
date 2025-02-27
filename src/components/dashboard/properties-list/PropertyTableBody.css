@@ -1,0 +1,204 @@
+.property-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .property-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px; 
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .property-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .property-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .property-image-placeholder {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    color: #666;
+    font-style: italic;
+  }
+  
+  .property-details {
+    padding: 15px;
+  }
+  
+  .property-title {
+    font-size: 20px;
+    margin: 0 0 10px;
+    color: #333;
+  }
+  
+  .property-category {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 10px;
+  }
+  
+  .property-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2ecc71;
+    margin: 0 0 10px;
+  }
+  
+  .property-features {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  
+  .property-bedrooms,
+  .property-bathrooms {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .property-city {
+    font-size: 14px;
+    color: #777;
+    margin: 10px 0;
+  }
+  
+  .show-contact-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #1d201d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .show-contact-button:hover {
+    background-color: #333;
+  }
+  .edit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50; /* Green color for edit button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .edit-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+
+  .edit-property-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .save-button,
+  .cancel-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .save-button {
+    background-color: #1d201d;
+    color: #fff;
+  }
+  
+  .cancel-button {
+    background-color: #ddd;
+    color: #333;
+    margin-left: 10px;
+  }
+  
+  .save-button:hover {
+    background-color: #333;
+  }
+  
+  .cancel-button:hover {
+    background-color: #ccc;
+  }
+
+  .image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .preview-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .delete-image-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+  
+  .delete-image-button:hover {
+    background: rgba(255, 0, 0, 1);
+  }

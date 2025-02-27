@@ -1,0 +1,151 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build directories
+dist/
+dist-ssr/
+.out/
+.next/
+build/
+
+
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+._*
+
+# IDE-specific files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Dependency artifacts
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Generated files
+*.cache
+*.log
+*.bak
+*.pid
+*.seed
+*.pid.lock
+
+# Specific to Angular/React
+.angular/
+.husky/_/
+.husky/_/.gitignore
+storybook-static/
+
+# Sentry sourcemaps
+*.map
+
+# Next.js files
+.next
+out/
+
+# Strapi uploads
+public/uploads/
+
+# Static files
+*.gzip
+*.svg.gz
+
+# MacOS Finder metadata
+.AppleDouble
+.LSOverride
+
+# Git Hooks
+.git/hooks/
+.git/refs/
+
+# Database files
+*.sqlite
+*.sqlite3
+
+# Backup files
+*.bak
+*.backup
+*.swp
+*.swo
+
+# Miscellaneous
+*.orig
+*.rej
+*.idb
+
+# Ignore env directories/files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
+
+# Local environment variables
+
+
+# Ignore compiled JavaScript files
+*.js.map
+*.d.ts
+*.d.ts.map
+
+# Ignore Next.js specific static files
+.next/
+static/
+
+# Ignore generated bundles
+*.bundle.js
+*.min.js
+
+# Ignore lockfiles for package managers
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore logs generated during development
+*.log
+
+# Ignore analytics data
+.analytics/
+
+# Ignore custom server logs
+*.log
+
+# Ignore eslint cache
+.eslintcache
+
+# Ignore prettier cache
+.prettiercache
+
+# Ignore other configuration-specific files
+babel.config.js
+tsconfig.build.json
