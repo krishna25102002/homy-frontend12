@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from 'axios';
+import API_BASE_URL from '../../services/api';
 
 interface FormData {
   user_name: string;
@@ -35,7 +36,7 @@ const ContactForm = () => {
         message: data.message,
       };
 
-      const response = await axios.post('http://localhost:5000/api/contact', payload);
+      const response = await axios.post(`${API_BASE_URL}/contact`, payload);
       if (response.data.success) {
         toast.success('Message sent successfully!', { position: 'top-center' });
         reset(); // Clear the form

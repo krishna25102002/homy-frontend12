@@ -1,6 +1,7 @@
 import NiceSelect from "../../../ui/NiceSelect";
 import { useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../../../services/api";
 
 interface UserAvatarSettingProps {
    onSave: () => void;
@@ -80,7 +81,7 @@ const UserAvatarSetting = ({ onSave }: UserAvatarSettingProps) => {
 
       // If the phone number does not exist, proceed to save the data
       try {
-         const response = await axios.post("http://localhost:5000/api/profiles", formData);
+         const response = await axios.post(`${API_BASE_URL}/profiles`, formData);
          console.log("Profile data saved:", response.data);
          setErrorMessage(""); // Clear any previous error message
       } catch (error) {

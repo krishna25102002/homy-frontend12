@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DashboardHeaderTwo from "../../../../layouts/headers/dashboard/DashboardHeaderTwo";
 import axios from "axios";
+import API_BASE_URL from "../../../../services/api";
 
 const PasswordChangeBody = () => {
    const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ const PasswordChangeBody = () => {
          return;
       }
       try {
-         const response = await axios.post("http://localhost:5000/api/password-change", formData);
+         const response = await axios.post(`${API_BASE_URL}/password-change`, formData);
          console.log("Password changed:", response.data);
          alert("Password changed successfully!");
       } catch (error) {

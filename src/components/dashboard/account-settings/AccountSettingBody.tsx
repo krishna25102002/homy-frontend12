@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import DashboardHeaderTwo from "../../../layouts/headers/dashboard/DashboardHeaderTwo";
 import axios from "axios";
+import API_BASE_URL from "../../../services/api";
 
 const AccountSettingBody = () => {
    const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const AccountSettingBody = () => {
    const handleSubmit = async (e: { preventDefault: () => void; }) => {
       e.preventDefault();
       try {
-         const response = await axios.post("http://localhost:5000/api/account-settings", formData);
+         const response = await axios.post(`${API_BASE_URL}/account-settings`, formData);
          console.log("Account settings saved:", response.data);
          alert("Account settings saved successfully!");
       } catch (error) {

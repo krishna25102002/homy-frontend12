@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios"; // Import axios for making HTTP requests
 import LoginModal from "../../modals/LoginModal";
+import API_BASE_URL from "../../services/api";
 
 const FancyBanner = ({ style }: any) => {
   const [loginModal, setLoginModal] = useState<boolean>(false);
@@ -13,7 +14,7 @@ const FancyBanner = ({ style }: any) => {
 
     try {
       // Send the email to the backend
-      const response = await axios.post("http://localhost:5000/api/emails", { email });
+      const response = await axios.post(`${API_BASE_URL}/emails`, { email });
       console.log("Response from backend:", response.data);
 
       // Set the message based on the response

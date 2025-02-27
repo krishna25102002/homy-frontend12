@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from '../../services/api';
 
 interface FormData {
    name: string;
@@ -42,7 +43,7 @@ const RegisterForm = () => {
       try {
          if (!isOtpStep) {
             // Step 1: Register user and send OTP
-            const response = await axios.post('http://localhost:5000/api/users/add', {
+            const response = await axios.post(`${API_BASE_URL}/users/add`, {
                name: data.name,
                email: data.email,
                mobile: data.mobile,
@@ -56,7 +57,7 @@ const RegisterForm = () => {
             }
          } else {
             // Step 2: Verify OTP
-            const response = await axios.post('http://localhost:5000/api/users/verify-otp', {
+            const response = await axios.post(`${API_BASE_URL}/users/verify-otp`, {
                email: email,
                otp: data.otp
             });

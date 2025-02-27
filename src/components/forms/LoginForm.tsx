@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
+import API_BASE_URL from '../../services/api';
 
 interface FormData {
   email: string;
@@ -39,7 +40,7 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await fetch("http://localhost:5000/api/users/login", {
+      const response = await fetch(`${API_BASE_URL}/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

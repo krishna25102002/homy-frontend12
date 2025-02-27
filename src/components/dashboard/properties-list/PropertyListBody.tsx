@@ -7,6 +7,7 @@ import { Property } from "./types";
 import EditPropertyModal from "./EditPropertyModal";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import API_BASE_URL from "../../../services/api";
 
 const PropertyListBody = () => {
   const [editingProperty, setEditingProperty] = useState<Property | null>(null);
@@ -21,7 +22,7 @@ const PropertyListBody = () => {
       if (!userId) return;
 
       try {
-        const response = await axios.get(`http://localhost:5000/api/properties/user/${userId}`);
+        const response = await axios.get(`${API_BASE_URL}/properties/user/${userId}`);
         setProperties(response.data.properties);
         setLoading(false);
       } catch (error) {
@@ -47,7 +48,7 @@ const PropertyListBody = () => {
   const handleEditSubmit = async (updatedProperty: Property) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/properties/${updatedProperty._id}`,
+        `${API_BASE_URL}/properties/${updatedProperty._id}`,
         updatedProperty
       );
 
@@ -69,7 +70,7 @@ const PropertyListBody = () => {
 
   const handleDeleteProperty = async (id: string) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/properties/${id}`);
+      const response = await axios.delete(`${API_BASE_URL}/properties/${id}`);
 
       if (response.data.success) {
         setProperties((prevProperties) => prevProperties.filter((property) => property._id !== id));
