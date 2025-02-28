@@ -328,8 +328,10 @@ const AddProperty: React.FC = () => {
         const formDataToSend = { ...formData, userId: localStorage.getItem('userId') };
 
         try {
-            const response = await axios.post('http://localhost:5000/api/properties', formDataToSend, {
-                headers: {
+            // const response = await axios.post('http://localhost:5000/api/properties', formDataToSend, {
+                const response = await axios.post('http://13.233.100.222:5000/api/properties', formDataToSend, {
+    
+            headers: {
                     'Content-Type': 'application/json',
                 },
             });
