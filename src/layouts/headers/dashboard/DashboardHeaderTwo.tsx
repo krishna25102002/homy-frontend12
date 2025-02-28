@@ -1,5 +1,3 @@
-import Notification from "./Notification";
-import Profile from "./Profile";
 import { useState } from "react";
 import DashboardHeaderOne from "./DashboardHeaderOne";
 import { Link } from "react-router-dom";

@@ -383,7 +383,7 @@ const ListingOneArea: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [contactNumber, setContactNumber] = useState<string>('');
   const [propertyLocation, setPropertyLocation] = useState<{ lat: number; lng: number } | null>(null);
-  const [expandedPropertyId, setExpandedPropertyId] = useState<string | null>(null);
+  const [] = useState<string | null>(null);
   const [imageModalIsOpen, setImageModalIsOpen] = useState<boolean>(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
