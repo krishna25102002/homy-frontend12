@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
-import API_BASE_URL from '../../services/api';
+import  API_BASE_URL  from '../../services/api';
 
 interface FormData {
   email: string;

@@ -18,75 +18,75 @@ interface FormData {
 const RegisterForm = () => {
    const [isOtpStep, setOtpStep] = useState(false);
    const [email, setEmail] = useState("");
-   
-   // Conditionally apply OTP validation when isOtpStep is true
-   const schema = yup.object({
+
+   // Schema for initial registration
+   const registrationSchema = yup.object({
       name: yup.string().required().label("Name"),
       email: yup.string().required().email().label("Email"),
       mobile: yup.string().required().label("Mobile"),
       password: yup.string().required().min(6).label("Password"),
-      otp: yup.string().when('isOtpStep', (isOtpStep, schema) => {
-         return isOtpStep
-            ? yup.string().required().label("OTP")
-            : schema.notRequired();
-      })
    }).required();
 
-//    // const schema = yup.object({
-//    name: yup.string().required().label("Name"),
-//    email: yup.string().required().email().label("Email"),
-//    mobile: yup.string().required().label("Mobile"),
-//    password: yup.string().required().min(6).label("Password"),
-//    otp: yup.string().when('isOtpStep', {
-//       is: true,
-//       then: yup.string().required().label("OTP"),
-//       otherwise: yup.string().notRequired() // If it's not OTP step, it's not required
-//    })
-// }).required();
+   // Schema for OTP verification
+   const otpSchema = yup.object({
+      otp: yup.string().required().label("OTP"),
+   }).required();
+
    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
-      resolver: yupResolver(schema),
+      resolver: yupResolver(isOtpStep ? otpSchema : registrationSchema), // Dynamically switch schema
    });
 
    const [isPasswordVisible, setPasswordVisibility] = useState(false);
 
    const togglePasswordVisibility = () => {
-
-
       setPasswordVisibility(!isPasswordVisible);
    };
 
-   const onSubmit = async (data: FormData) => {
+   const registerUser = async (data: FormData) => {
       try {
-         if (!isOtpStep) {
-            // Step 1: Register user and send OTP
-               const response = await axios.post(`${API_BASE_URL}/users/add`, {
-                  name: data.name,
-               email: data.email,
-               mobile: data.mobile,
-               password: data.password
-            });
+         // Step 1: Register user and send OTP
+         const response = await axios.post(`${API_BASE_URL}/users/add`, {
+            name: data.name,
+            email: data.email,
+            mobile: data.mobile,
+            password: data.password
+         });
 
-            if (response.data.message) {
-               toast.success(response.data.message, { position: 'top-center' });
-               setEmail(data.email);
-               setOtpStep(true);
-            }
-         } else {
-            // Step 2: Verify OTP
-            const response = await axios.post(`${API_BASE_URL}/users/verify-otp`, {
-               email: email,
-               otp: data.otp
-            });
+         if (response.data.message) {
+            toast.success(response.data.message, { position: 'top-center' });
+            setEmail(data.email);
+            setOtpStep(true);
+         }
+      } catch (error: any) {
+         console.error('Error response:', error.response); // Log the error response
+         toast.error(error.response?.data?.message || "Something went wrong", { position: 'top-center' });
+      }
+   };
 
-            if (response.data.message) {
-               toast.success(response.data.message, { position: 'top-center' });
-               reset();
-               setOtpStep(false);
-               setEmail("");
-            }
+   const verifyOtp = async (data: FormData) => {
+      try {
+         // Step 2: Verify OTP
+         const response = await axios.post(`${API_BASE_URL}/users/verify-otp`, {
+            email: email,
+            otp: data.otp
+         });
+
+         if (response.data.message) {
+            toast.success(response.data.message, { position: 'top-center' });
+            reset();
+            setOtpStep(false);
+            setEmail("");
          }
       } catch (error: any) {
          toast.error(error.response?.data?.message || "Something went wrong", { position: 'top-center' });
+      }
+   };
+
+   const onSubmit = (data: FormData) => {
+      if (!isOtpStep) {
+         registerUser(data);
+      } else {
+         verifyOtp(data);
       }
    };
 
@@ -121,7 +121,7 @@ const RegisterForm = () => {
                         <label>Password*</label>
                         <input type={isPasswordVisible ? "text" : "password"} {...register("password")} placeholder="Enter Password" className="pass_log_id" />
                         <span className="placeholder_icon">
-                        <span className={`passVicon ${isPasswordVisible ? "eye-slash" : ""}`}>
+                           <span className={`passVicon ${isPasswordVisible ? "eye-slash" : ""}`}>
                               <img onClick={togglePasswordVisibility} src="/assets/images/icon/icon_68.svg" alt="toggle visibility" />
                            </span>
                         </span>
@@ -159,6 +159,7 @@ const RegisterForm = () => {
 
 export default RegisterForm;
 
+
 // import { useState } from "react";
 // import { toast } from 'react-toastify';
 // import * as yup from "yup";
@@ -177,61 +178,76 @@ export default RegisterForm;
 // }
 
 // const RegisterForm = () => {
-//    const schema = yup
-//       .object({
-//          name: yup.string().required().label("Name"),
-//          email: yup.string().required().email().label("Email"),
-//          mobile: yup.string().required().label("Mobile"),
-//          password: yup.string().required().min(6).label("Password"),
-//          otp: yup.string().when('isOtpStep', {
-//             is: true,
-//             then: yup.string().required().label("OTP"),
-//          })
-//       })
-//       .required();
-
-//    const { register, handleSubmit, reset, formState: { errors }, } = useForm<FormData>({ resolver: yupResolver(schema), });
-
-//    const [isPasswordVisible, setPasswordVisibility] = useState(false);
 //    const [isOtpStep, setOtpStep] = useState(false);
 //    const [email, setEmail] = useState("");
+
+//    // Schema for initial registration
+//    const registrationSchema = yup.object({
+//       name: yup.string().required().label("Name"),
+//       email: yup.string().required().email().label("Email"),
+//       mobile: yup.string().required().label("Mobile"),
+//       password: yup.string().required().min(6).label("Password"),
+//    }).required();
+
+//    // Schema for OTP verification
+//    const otpSchema = yup.object({
+//       otp: yup.string().required().label("OTP"),
+//    }).required();
+
+//    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
+//       resolver: yupResolver(isOtpStep ? otpSchema : registrationSchema), // Dynamically switch schema
+//    });
+
+//    const [isPasswordVisible, setPasswordVisibility] = useState(false);
 
 //    const togglePasswordVisibility = () => {
 //       setPasswordVisibility(!isPasswordVisible);
 //    };
 
-//    const onSubmit = async (data: FormData) => {
+//    const registerUser = async (data: FormData) => {
 //       try {
-//          if (!isOtpStep) {
-//             // Step 1: Register user and send OTP
-//             const response = await axios.post(`${API_BASE_URL}/users/add`, {
-//                name: data.name,
-//                email: data.email,
-//                mobile: data.mobile,
-//                password: data.password
-//             });
+//          // Step 1: Register user and send OTP
+//          const response = await axios.post(`${API_BASE_URL}/users/add`, {
+//             name: data.name,
+//             email: data.email,
+//             mobile: data.mobile,
+//             password: data.password
+//          });
 
-//             if (response.data.message) {
-//                toast.success(response.data.message, { position: 'top-center' });
-//                setEmail(data.email);
-//                setOtpStep(true);
-//             }
-//          } else {
-//             // Step 2: Verify OTP
-//             const response = await axios.post(`${API_BASE_URL}/users/verify-otp`, {
-//                email: email,
-//                otp: data.otp
-//             });
-
-//             if (response.data.message) {
-//                toast.success(response.data.message, { position: 'top-center' });
-//                reset();
-//                setOtpStep(false);
-//                setEmail("");
-//             }
+//          if (response.data.message) {
+//             toast.success(response.data.message, { position: 'top-center' });
+//             setEmail(data.email);
+//             setOtpStep(true);
 //          }
 //       } catch (error: any) {
 //          toast.error(error.response?.data?.message || "Something went wrong", { position: 'top-center' });
+//       }
+//    };
+
+//    const verifyOtp = async (data: FormData) => {
+//       try {
+//          // Step 2: Verify OTP
+//          const response = await axios.post(`${API_BASE_URL}/users/verify-otp`, {
+//             email: email,
+//             otp: data.otp
+//          });
+
+//          if (response.data.message) {
+//             toast.success(response.data.message, { position: 'top-center' });
+//             reset();
+//             setOtpStep(false);
+//             setEmail("");
+//          }
+//       } catch (error: any) {
+//          toast.error(error.response?.data?.message || "Something went wrong", { position: 'top-center' });
+//       }
+//    };
+
+//    const onSubmit = (data: FormData) => {
+//       if (!isOtpStep) {
+//          registerUser(data);
+//       } else {
+//          verifyOtp(data);
 //       }
 //    };
 

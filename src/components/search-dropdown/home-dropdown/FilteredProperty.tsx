@@ -109,8 +109,8 @@ const ListingOneArea: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await axios.get('http://localhost:5000/api/properties');
-        const response = await axios.get('http://13.233.100.222:5000/api/properties');
+        const response = await axios.get('http://localhost:5000/api/properties');
+        // const response = await axios.get('http://13.233.100.222:5000/api/properties');
         console.log('API Response:', response.data); // Debugging log
         if (response.data && Array.isArray(response.data.properties)) {
           setProperties(response.data.properties);
