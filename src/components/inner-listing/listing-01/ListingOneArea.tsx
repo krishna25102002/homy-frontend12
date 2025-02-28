@@ -562,9 +562,6 @@ const ListingOneArea: React.FC = () => {
   };
 
   // Toggle expanded state for a property
-  const toggleExpand = (propertyId: string) => {
-    setExpandedPropertyId(expandedPropertyId === propertyId ? null : propertyId);
-  };
 
   // Function to open the details modal
   const openDetailsModal = (property: any) => {
