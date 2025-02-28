@@ -25,14 +25,25 @@ const RegisterForm = () => {
       email: yup.string().required().email().label("Email"),
       mobile: yup.string().required().label("Mobile"),
       password: yup.string().required().min(6).label("Password"),
-      otp: yup.string().when('isOtpStep', {
-         is: true,  // Check if isOtpStep is true
-         then: yup.string().required().label("OTP"),
-         otherwise: yup.string().notRequired()  // If not OTP step, do not require OTP
+      otp: yup.string().when('isOtpStep', (isOtpStep, schema) => {
+         return isOtpStep
+            ? yup.string().required().label("OTP")
+            : schema.notRequired();
       })
-   });
+   }).required();
 
-   const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm<FormData>({
+//    // const schema = yup.object({
+//    name: yup.string().required().label("Name"),
+//    email: yup.string().required().email().label("Email"),
+//    mobile: yup.string().required().label("Mobile"),
+//    password: yup.string().required().min(6).label("Password"),
+//    otp: yup.string().when('isOtpStep', {
+//       is: true,
+//       then: yup.string().required().label("OTP"),
+//       otherwise: yup.string().notRequired() // If it's not OTP step, it's not required
+//    })
+// }).required();
+   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
       resolver: yupResolver(schema),
    });
 
